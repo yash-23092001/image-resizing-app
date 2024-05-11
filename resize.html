@@ -15,10 +15,16 @@
     <div id="image-container">
         <img id="uploaded-image" src="#" alt="Uploaded Image">
     </div>
+    <p>Default sizes:   </p>
     <button id="resize-button-instagram">Instagram (1080x1080)</button>
     <button id="resize-button-facebook">Facebook (1200x630)</button>
     <button id="resize-button-twitter">Twitter (1200x675)</button>
-    <button id="resize-button-website">Website (600x300)</button>
+    <button id="resize-button-website">Website (600x300)</button><br>
+    <p>Custome size: </p>
+    <p>Height: </p><input type="number" id="imageHeight">
+    <p>Width: </p><input type="number" id="imageWidth"><br><br>
+    <button id="reSizeButton">Resize</button>
+
 
     <script>
         // Function to display the selected image
@@ -26,6 +32,9 @@
             const imageContainer = document.getElementById('image-container');
             const uploadedImage = document.getElementById('uploaded-image');
             const file = this.files[0];
+            // let newHeight = document.getElementById('imageHeight').value;
+            // let newWidth = document.getElementById('imageWidth').value;
+
 
             if (file) {
                 const reader = new FileReader();
@@ -56,6 +65,10 @@
 
         document.getElementById('resize-button-website').addEventListener('click', function () {
             resizeImage(600, 300);
+        });
+
+        document.getElementById('reSizeButton').addEventListener('click', function () {
+            resizeImage(parseInt(document.getElementById('imageWidth').value), parseInt(document.getElementById('imageHeight').value));
         });
 
         // Function to resize the image
