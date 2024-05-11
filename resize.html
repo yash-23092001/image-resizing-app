@@ -24,6 +24,7 @@
     <p>Height: </p><input type="number" id="imageHeight">
     <p>Width: </p><input type="number" id="imageWidth"><br><br>
     <button id="reSizeButton">Resize</button>
+    <button onclick="downloadImage()">Save Image</button>
 
 
     <script>
@@ -50,6 +51,7 @@
             }
         });
 
+
         // Function to resize the image to specific dimensions when a button is clicked
         document.getElementById('resize-button-instagram').addEventListener('click', function () {
             resizeImage(1080, 1080);
@@ -70,6 +72,33 @@
         document.getElementById('reSizeButton').addEventListener('click', function () {
             resizeImage(parseInt(document.getElementById('imageWidth').value), parseInt(document.getElementById('imageHeight').value));
         });
+
+        function downloadImage() {
+            // Get the <img> element by its ID
+            var imgElement = document.getElementById("uploaded-image");
+
+            // Create a canvas element
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+
+            // Set the canvas dimensions to the image dimensions
+            canvas.width = imgElement.width;
+            canvas.height = imgElement.height;
+
+            // Draw the image onto the canvas with resized dimentions
+            ctx.drawImage(imgElement, 0, 0, imgElement.width, imgElement.height);
+
+            // Convert the canvas to a data URL
+            var dataURL = canvas.toDataURL('image/png');
+
+            // Create a temporary anchor element
+            var link = document.createElement('a');
+            link.download = 'resized.png'; // Name of the downloaded file
+            link.href = dataURL; // Set the href attribute to the data URL
+
+            // Simulate a click on the anchor element to trigger the download
+            link.click();
+        }
 
         // Function to resize the image
         function resizeImage(width, height) {
